@@ -65,7 +65,7 @@ def filefactory(msg, content):
 	filename += ".bat"
 	file = open(filename, "w")
 	file.write('''{}'''.format(content))
-	file.close
+	file.close()
 
 
 def bforce():
