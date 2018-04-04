@@ -31,6 +31,31 @@ crearse en la ruta {}'''.format(os.getcwd())
 MSG2 = "de momento solo hay un virus joke porque es muy tarde"
 #///////////////////////////////////////////////////////////////////////////
 
+def config():
+	conf = str()
+	while conf != 'r':
+		subprocess.call(["cmd.exe","/c","cls"])
+		conf = str(raw_input('''
+		/////////////////////////////
+		Elige el color de las letras:
+		-----------------------------
+		[v]erde                      
+		[b]lanco                     
+		[a]marillo                   
+		-----------------------------
+		[r]egresar al menu principal
+		/////////////////////////////
+		> '''))
+		if conf == "v":
+			subprocess.call(["cmd.exe","/c","color a"])
+		elif conf == "b":
+			subprocess.call(["cmd.exe","/c","color 7"])
+		elif conf == "a":
+			subprocess.call(["cmd.exe","/c","color e"])
+
+
+
+
 def filefactory(msg, content):
 	subprocess.call(["cmd.exe","/c","cls"])
 	print('''{}'''.format(msg))
@@ -87,7 +112,7 @@ def run(content1, content2, msg1, msg2):
 			para salir escribe "exit"
 			*************************
             
-            > '''))
+             > '''))
 		if do == "f":
 			bforce()
 		elif do == "s":
@@ -95,8 +120,7 @@ def run(content1, content2, msg1, msg2):
 		elif do == "j":
 			filefactory(msg2, content2)
 		elif do == "c":
-			print("esto lo voy a crear mañana")
-        	getpass.getpass("presione enter para continuar")
+			config()
 
 
 if __name__ == '__main__':
