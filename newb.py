@@ -27,13 +27,9 @@ def bforceftp(users, passwords, server, tm):
 				print("\n[*]{}".format(e))
 				sleep(tm)
 			else:
-				print('''
-				tenemos un ganador.
-				Servidor: {}
-				Usuario: {}
-				Contraseña: {}
-				'''.format(server, user, password))
-				passw = True
+				print("Servidor: {}".format(server))
+				print("Usuario: {}".format(user))				
+				print("Clave: {}".format(password))
 				exit()
 
 				
