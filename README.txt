@@ -1,6 +1,5 @@
-Esta aplicación es una herramienta de pentesting MUY basic (tan simple que no debería de usarse en ninguna 
-prueba de penetración) aquí vas a encontrar cosas como:
-    1.- Fuerza bruta
-    2.- virus muy sencillos (los cuales no explotan vulnerabilidades, solo son virus para molestar)
-    3.- spyware hecho con bash (no es nada nuevo, solo es un pequeño script que copia archivos desde una usb) 
-entre otros.
+Es una herramienta MUY BASICA de pentesting, actualmente se le retiraró la opción
+de crear virus en batch, por lo que temporalmente solo funciona para fuerza bruta a correos 
+electronicos, estoy trabajando en una funcion para fuerza bruta a servidores ftp.
+
+By: Diego Jonás Pérez

