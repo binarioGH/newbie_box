@@ -1,5 +1,4 @@
-Es una herramienta MUY BASICA de pentesting, actualmente se le retiraró la opción
-de crear virus en batch, por lo que temporalmente solo funciona para fuerza bruta a correos 
-electronicos, estoy trabajando en una funcion para fuerza bruta a servidores ftp.
+Herramienta de fuerza bruta, actualmente puede hacer ataques a gmail y servidores ftp.
+no me hago responsable del mal uso que se le de, la herramienta está hecha con fines educativos.
 
 By: Diego Jonás Pérez

