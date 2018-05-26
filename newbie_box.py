@@ -60,6 +60,7 @@ def ftpbforce():
 				'''.format(server, user, password))
 				passw = True
 				break
+	conexion.quit()
 	getpass.getpass("Presiona enter para continuar...")
 def config():
 	conf = str()
