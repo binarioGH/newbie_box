@@ -55,7 +55,14 @@ def listaupf(lista, count):
 		return lista
 
 def h():
-	print("[-] De momento no tengo tiempo para crear esto, lo siento, será temporal.")
+	print("\nOpciones:")
+	print("\nSe debe de especificar que servicio se va a atacar:\nftp o una cuenta gmail.")
+	print("\ngmail: --gm\nftp: --ftp\n\nLas banderas que se pueden usar en los 2 prametros:")
+	print("\n-u:  Se usa para establecer con que usuario ingresar.\n-uf: Establecer diccionario de usuarios.")
+	print("-p:  Sirve para establecer una contraseña.\n-pf: Establecer diccionario de contraseñas.")
+	print("-t:  Sirve para establecer el tiempo entre cada intento.")
+	print("\nSolo hay una bandera exclusiva para ftp:\n\n-hst:  Sirve para establecer la dirección del servidor.")
+
 if __name__ == '__main__':
 	if len(argv) == 1:
 		print("{} -h para ver las opciones.".format(argv[0]))
