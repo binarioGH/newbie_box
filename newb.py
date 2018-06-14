@@ -66,7 +66,7 @@ def h():
 	#print("-t:  Sirve para establecer el tiempo entre cada intento.")
 	print("\nSolo hay una bandera exclusiva para ftp:\n\n-hst:  Sirve para establecer la dirección del servidor.")
 	print("\nBanderas para --mail:")
-	print("\n\nSi se usa --mail debe usarse -gm o -hm, para escoger gmail o hotmail.")
+	print("\n\nSi se usa --mail debe usarse -gm, -hm o -yh, para escoger gmail, hotmail o yahoo.")
 
 if __name__ == '__main__':
 	if len(argv) == 1:
@@ -80,7 +80,8 @@ if __name__ == '__main__':
 		argcount = 1
 		#time = 5
 		ftp, mail = False, False
-		gm, hm = False, False
+		options = {"gm": False, "hm": False, "yh": False}
+		#gm, hm, yh = False, False, False
 		for arg in argv[1:]:
 			if arg[0] != "-":
 				argcount += 1
@@ -108,20 +109,28 @@ if __name__ == '__main__':
 			elif arg == "-p":
 				listaup(passwordlist, argcount)
 			elif arg == "-gm":
-				gm = True
+				options["gm"] = True
 			elif arg == "-hm":
-				hm = True
+				options["hm"] = True
+			elif arg == "-yh":
+				options["yh"] = True
 			else:
 				print("No se reconoce '{}' como una bandera.".format(arg))
 				exit()
 			argcount += 1
-			if gm == True and hm == True:
-				print("No se puede usar -gm y -hm al mismo tiempo.")
-				exit()
-		if gm == True:
+			optcount = 0
+			for option in options:
+				if options[option] == True:
+					optcount += 1
+				if optcount > 1:
+					print("No se puede usar 2 servidores smtp al mismo tiempo.")
+					exit()
+		if options["gm"] == True:
 		    srv = 'smtp.gmail.com:587'
-		elif hm == True:
+		elif options["hm"] == True:
 			srv = 'smtp.live.com:587'
+		elif options["yh"] == True:
+			srv = 'smtp.mail.yahoo.com:25'
 		if ftp == True and ip == "":
 			print("para usar --ftp se ocupa determinar una ip:\n-hst (ip del servidor ftp)")
 			exit()
@@ -130,5 +139,5 @@ if __name__ == '__main__':
 		elif mail == True and srv != "":
 			bforcemail(userslist, passwordlist, srv)
 		elif mail == True and srv == "":
-			print("No se ha determinado si se usará gmail o hotmail.")
+			print("No se ha elegido un servidor smtp.")
 			exit()
