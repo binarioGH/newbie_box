@@ -67,6 +67,7 @@ def h():
 	print("\nSolo hay una bandera exclusiva para ftp:\n\n-hst:  Sirve para establecer la dirección del servidor.")
 	print("\nBanderas para --mail:")
 	print("\n\nSi se usa --mail debe usarse -gm, -hm o -yh, para escoger gmail, hotmail o yahoo.")
+	print("Tambien puedes usar -o para escoger tu propio servidor smtp:\n-o dominiosmtp:puerto .")
 
 if __name__ == '__main__':
 	if len(argv) == 1:
@@ -80,7 +81,7 @@ if __name__ == '__main__':
 		argcount = 1
 		#time = 5
 		ftp, mail = False, False
-		options = {"gm": False, "hm": False, "yh": False}
+		options = {"gm": False, "hm": False, "yh": False, "o": False}
 		#gm, hm, yh = False, False, False
 		for arg in argv[1:]:
 			if arg[0] != "-":
@@ -110,10 +111,16 @@ if __name__ == '__main__':
 				listaup(passwordlist, argcount)
 			elif arg == "-gm":
 				options["gm"] = True
+				srv = 'smtp.gmail.com:587'
 			elif arg == "-hm":
 				options["hm"] = True
 			elif arg == "-yh":
+				srv = 'smtp.live.com:587'
 				options["yh"] = True
+				srv = 'smtp.mail.yahoo.com:25'
+			elif arg == "-o":
+				srv = argv[argcount + 1]
+				options["o"] = True
 			else:
 				print("No se reconoce '{}' como una bandera.".format(arg))
 				exit()
@@ -125,12 +132,9 @@ if __name__ == '__main__':
 				if optcount > 1:
 					print("No se puede usar 2 servidores smtp al mismo tiempo.")
 					exit()
-		if options["gm"] == True:
-		    srv = 'smtp.gmail.com:587'
-		elif options["hm"] == True:
-			srv = 'smtp.live.com:587'
-		elif options["yh"] == True:
-			srv = 'smtp.mail.yahoo.com:25'
+			
+		
+			
 		if ftp == True and ip == "":
 			print("para usar --ftp se ocupa determinar una ip:\n-hst (ip del servidor ftp)")
 			exit()
