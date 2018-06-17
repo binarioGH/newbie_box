@@ -91,6 +91,7 @@ if __name__ == '__main__':
 		print("{} -h para ver las opciones.".format(argv[0]))
 	elif len(argv) == 2 and argv[1] == "-h":
 		h()
+		exit()
 	else:
 		userslist = []
 		passwordlist = []
@@ -98,25 +99,28 @@ if __name__ == '__main__':
 		argcount = 1
 		fl = str()
 		#time = 5
-		ftp, mail = False, False
-		options = {"gm": False, "hm": False, "yh": False, "o": False}
-		mainopt = {"mail": False, "ftp": False, "zip":False}
+		ftp, mail, bzip = False, False, False
+		counto = 0
+		countom = 0
 		for arg in argv[1:]:
 			if arg[0] != "-":
 				argcount += 1
 				continue
 			if arg == "--ftp":
-				mainopt["ftp"] = True
+				countom += 1
 				argcount += 1
+				ftp = True
 				continue
 			elif arg == "--zip":
-				mainopt["zip"] = True
+				countom += 1
 				argcount += 1
+				bzip = True
 				continue
 			elif arg == "--mail":
-				mainopt["mail"] = True
+				countom += 1
 				srv = str()
 				argcount += 1
+				mail = True
 				continue
 			if arg == "-uf":
 				listaupf(userslist, argcount)
@@ -129,49 +133,42 @@ if __name__ == '__main__':
 			elif arg == "-p":
 				listaup(passwordlist, argcount)
 			elif arg == "-gm":
-				options["gm"] = True
+				counto += 1
 				srv = 'smtp.gmail.com:587'
 			elif arg == "-hm":
 				options["hm"] = True
 			elif arg == "-yh":
 				srv = 'smtp.live.com:587'
-				options["yh"] = True
+				counto += 1
 				srv = 'smtp.mail.yahoo.com:25'
 			elif arg == "-o":
 				srv = argv[argcount + 1]
-				options["o"] = True
+				counto += 1
 			elif arg == "-file":
 				fl = argv[argcount + 1]
 			else:
 				print("No se reconoce '{}' como una bandera.".format(arg))
 				exit()
+
 			argcount += 1
-			optcount = 0
-			for option in options:
-				if options[option] == True:
-					optcount += 1
-				if optcount > 1:
-					print("No se puede usar 2 servidores smtp al mismo tiempo.")
-					exit()
-			optcount = 0
-			for option in mainopt:
-				if mainopt[option] == True:
-					optcount += 1
-				if optcount > 1:
-					print("No se puede usar más de una función al mismo tiempo.")
-					exit()
 			
+		if countom > 1:
+			print("Solo se puede escoger una función de fuerza bruta.")
+			exit()
+		if counto > 1:
+			print("Solo se puede escoger un server smtp.")
+			exit()
 		if ftp == True and ip == "":
 			print("para usar --ftp se ocupa determinar una ip:\n-hst (ip del servidor ftp)")
 			exit()
-		elif mainopt["ftp"] == True:
+		elif ftp == True:
 			bforceftp(userslist, passwordlist, ip, time)
-		elif mainopt["mail"] == True and srv != "":
+		elif mail == True and srv != "":
 			bforcemail(userslist, passwordlist, srv)
-		elif mainopt	["mail"] == True and srv == "":
+		elif mail == True and srv == "":
 			print("No se ha elegido un servidor smtp.")
 			exit()
-		elif mainopt["zip"] == True and fl != "":
+		elif bzip == True and fl != "":
 			bforcezip(fl, passwordlist)
 		else:
 			print("No se ha establecido un archivo al cual atacar.")
