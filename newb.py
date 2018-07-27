@@ -118,9 +118,9 @@ if __name__ == '__main__':
 				counto += 1
 				srv = 'smtp.gmail.com:587'
 			elif arg == "-hm":
+				srv = 'smtp.live.com:587'
 				options["hm"] = True
 			elif arg == "-yh":
-				srv = 'smtp.live.com:587'
 				counto += 1
 				srv = 'smtp.mail.yahoo.com:25'
 			elif arg == "-o":
